@@ -1,0 +1,12 @@
+# Normalize line endings
+*text=auto eol=lf
+
+# Explicit file types
+*.ts   text
+*.tsx  text
+*.js   text
+*.jsx  text
+*.json text
+*.md   text
+*.html text
+*.css  text

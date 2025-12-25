@@ -1,0 +1,48 @@
+export const TokenType = {
+  // Single character tokens
+  LEFT_PAREN: "LEFT_PAREN",
+  RIGHT_PAREN: "RIGHT_PAREN",
+  LEFT_CURLY_BRACE: "LEFT_CURLY_BRACE",
+  RIGHT_CURLY_BRACE: "RIGHT_CURLY_BRACE",
+  SEMICOLON: "SEMICOLON",
+  DOT: "DOT",
+  COMMA: "COMMA",
+  EQUAL: "EQUAL",
+  PLUS: "PLUS",
+  MINUS: "MINUS",
+  STAR: "STAR",
+  SLASH: "SLASH",
+  BANG: "BANG",
+
+  // 2 character tokens
+  BANG_EQUAL: "BANG_EQUAL",
+  EQUAL_EQUAL: "EQUAL_EQUAL",
+  GREATER: "GREATER",
+  GREATER_EQUAL: "GREATER_EQUAL",
+  LESS: "LESS",
+  LESS_EQUAL: "LESS_EQUAL",
+
+  IDENTIFIER: "IDENTIFIER",
+  STRING: "STRING",
+  NUMBER: "NUMBER",
+
+  // Reserved keywords
+  SAHI: "SAHI",
+  GALAT: "GALAT",
+  NALLA: "NALLA",
+
+  HI_BHAI: "HI_BHAI",
+  BYE_BHAI: "BYE_BHAI",
+  BHAI_YE_HAI: "BHAI_YE_HAI",
+  BOL_BHAI: "BOL_BHAI",
+  AGAR_BHAI: "AGAR_BHAI",
+  NAHI_TO_BHAI: "NAHI_TO_BHAI",
+  WARNA_BHAI: "WARNA_BHAI",
+  JAB_TAK_BHAI: "JAB_TAK_BHAI",
+  BAS_KAR_BHAI: "BAS_KAR_BHAI",
+  AGLA_DEKH_BHAI: "AGLA_DEKH_BHAI",
+
+  EOF: "EOF",
+} as const;
+
+export type TokenType = (typeof TokenType)[keyof typeof TokenType];

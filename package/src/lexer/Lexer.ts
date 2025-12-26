@@ -135,6 +135,14 @@ export class Lexer {
       case ",":
         this.addToken(TokenType.COMMA);
         break;
+      case ">":
+        this.addToken(
+          this.match("=") ? TokenType.GREATER_EQUAL : TokenType.GREATER
+        );
+        break;
+      case "<":
+        this.addToken(this.match("=") ? TokenType.LESS_EQUAL : TokenType.LESS);
+        break;
       case ";":
         this.addToken(TokenType.SEMICOLON);
         break;

@@ -1,6 +1,14 @@
 import { Token } from "./Token";
 import { TokenType } from "./TokenType";
 
+export class LexerError {
+  constructor(
+    public line: number,
+    public message: string,
+    public lexeme?: string
+  ) {}
+}
+
 const keywords: { [key: string]: TokenType } = {
   sahi: TokenType.SAHI,
   galat: TokenType.GALAT,
@@ -28,11 +36,17 @@ export class Lexer {
   private _line: number = 1;
   private _wordBuffer: string = "";
 
+  public LexErrors: LexerError[] = [];
+
   constructor(source: string) {
     this._source = source;
   }
 
-  scanTokens(): Token[] {
+  handleError(line: number, message: string, lexeme: string): void {
+    this.LexErrors.push(new LexerError(line, message, lexeme));
+  }
+
+  scanTokens(): { tokens: Token[]; errors: LexerError[] } {
     while (!this.isAtEnd()) {
       this._start = this._current;
       this.scanToken();
@@ -45,7 +59,7 @@ export class Lexer {
     //   literal: null,
     //   line: this._line,
     // });
-    return this.tokens;
+    return { tokens: this.tokens, errors: this.LexErrors };
   }
 
   private isAtEnd(): boolean {
@@ -202,7 +216,12 @@ export class Lexer {
         } else if (this.isAlphaNumeric(c)) {
           this._wordBuffer += c;
         } else {
-          this.processWord(this._wordBuffer);
+          if (this._wordBuffer.length > 0) {
+            this.processWord(this._wordBuffer);
+            this._wordBuffer = "";
+          }
+
+          this.handleError(this._line, `Unexpected character '${c}'`, c);
         }
 
         break;
@@ -215,8 +234,11 @@ export class Lexer {
       this.advance();
     }
     if (this.isAtEnd()) {
-      // TODO: Throw an error saying unterminated string
-      console.log(`Unterminated string at line ${this._line}`);
+      this.handleError(
+        this._line,
+        "Unterminated string",
+        this._source.substring(this._start, this._current)
+      );
       return;
     }
     this.advance();

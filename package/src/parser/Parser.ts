@@ -10,6 +10,18 @@ import {
   ExprVariable,
 } from "./Expr/index";
 
+import {
+  Stmt,
+  StmtBlock,
+  StmtBreak,
+  StmtContinue,
+  StmtExpr,
+  StmtIf,
+  StmtPrint,
+  StmtVar,
+  StmtWhile,
+} from "./Stmt/index";
+
 export class ParseError extends Error {
   public token: Token;
   constructor(token: Token, message: string) {
@@ -27,19 +39,150 @@ export class Parser {
     this._tokens = tokens;
   }
 
-  parse(): Expr | null {
+  // parse(): Expr | null {
+  //   try {
+  //     return this.expression();
+  //   } catch (error: ParseError | any) {
+  //     this.synchronize();
+  //     return null;
+  //   }
+  // }
+  parse(): { statements: Stmt[] | null; errors: ParseError[] } {
+    const statements: Stmt[] = [];
+    while (!this.isAtEnd()) {
+      statements.push(this.declaration());
+    }
+
+    return { statements, errors: this.errors };
+  }
+
+  statement(): Stmt {
+    if (this.match(TokenType.BOL_BHAI)) {
+      return this.printStatement();
+    }
+    if (this.match(TokenType.AGAR_BHAI)) {
+      return this.ifStatement();
+    }
+    if (this.match(TokenType.JAB_TAK_BHAI)) {
+      return this.whileStatement();
+    }
+    if (this.match(TokenType.BAS_KAR_BHAI)) {
+      this.consume(TokenType.SEMICOLON, "Expect ';' after 'bas kar bhai'.");
+      return new StmtBreak();
+    }
+    if (this.match(TokenType.AGLA_DEKH_BHAI)) {
+      this.consume(TokenType.SEMICOLON, "Expect ';' after 'agla dekh bhai'.");
+      return new StmtContinue();
+    }
+    if (this.match(TokenType.LEFT_CURLY_BRACE)) {
+      return new StmtBlock(this.block());
+    }
+    return this.expressionStatement();
+  }
+
+  declaration(): Stmt {
     try {
-      return this.expression();
-    } catch (error: ParseError | any) {
-      this.synchronize();
-      return null;
+      if (this.match(TokenType.BHAI_YE_HAI)) {
+        return this.varDeclaration();
+      }
+      return this.statement();
+    } catch (error: any) {
+      if (error instanceof ParseError) {
+        this.errors.push(error);
+        this.synchronize();
+        return new StmtBlock([]);
+      }
+      throw error;
     }
   }
 
+  varDeclaration(): StmtVar {
+    const name: Token = this.consume(
+      TokenType.IDENTIFIER,
+      "Expect variable name."
+    );
+
+    let initializer: Expr | null = null;
+    if (this.match(TokenType.EQUAL)) {
+      initializer = this.expression();
+    }
+
+    this.consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.");
+    // Initialize to null if no value
+    return new StmtVar(name, initializer ?? new ExprLiteral(null));
+  }
+
+  block(): Stmt[] {
+    const statements: Stmt[] = [];
+    while (!this.check(TokenType.RIGHT_CURLY_BRACE) && !this.isAtEnd()) {
+      statements.push(this.declaration());
+    }
+    this.consume(TokenType.RIGHT_CURLY_BRACE, "Expect '}' after block.");
+    return statements;
+  }
+
+  printStatement(): StmtPrint {
+    const expressions: Expr[] = [this.expression()];
+    while (this.match(TokenType.COMMA)) {
+      expressions.push(this.expression());
+    }
+    this.consume(TokenType.SEMICOLON, "Expect ';' after value.");
+    return new StmtPrint(expressions);
+  }
+
+  ifStatement(): StmtIf {
+    this.consume(TokenType.LEFT_PAREN, "Expect '(' after 'agar bhai'.");
+    const condition: Expr = this.expression();
+    this.consume(TokenType.RIGHT_PAREN, "Expect ')' after 'agar bhai'.");
+
+    const thenBranch: Stmt = this.statement();
+
+    const elseIfConditions: Expr[] = [];
+    const elseIfBranches: Stmt[] = [];
+
+    while (this.match(TokenType.NAHI_TO_BHAI)) {
+      this.consume(TokenType.LEFT_PAREN, "Expect '(' after 'nahi to bhai'.");
+      const elifCond: Expr = this.expression();
+      this.consume(TokenType.RIGHT_PAREN, "Expect ')' after 'nahi to bhai'.");
+      const elifBody: Stmt = this.statement();
+
+      elseIfConditions.push(elifCond);
+      elseIfBranches.push(elifBody);
+    }
+
+    let elseBranch: Stmt | null = null;
+    if (this.match(TokenType.WARNA_BHAI)) {
+      elseBranch = this.statement();
+    }
+
+    return new StmtIf(
+      condition,
+      thenBranch,
+      elseIfConditions,
+      elseIfBranches,
+      elseBranch
+    );
+  }
+
+  whileStatement(): StmtWhile {
+    this.consume(TokenType.LEFT_PAREN, "Expect '(' after 'jab tak bhai'.");
+    const condition: Expr = this.expression();
+    this.consume(TokenType.RIGHT_PAREN, "Expect ')' after 'jab tak bhai'.");
+    const body: Stmt = this.statement();
+
+    return new StmtWhile(condition, body);
+  }
+
+  expressionStatement(): StmtExpr {
+    const expr: Expr = this.expression();
+    this.consume(TokenType.SEMICOLON, "Expect ';' after expression.");
+    return new StmtExpr(expr);
+  }
+
   error(token: Token, message: string): ParseError {
-    const err: ParseError = new ParseError(token, message);
-    this.errors.push(err);
-    return err;
+    // const err: ParseError = new ParseError(token, message);
+    // this.errors.push(err);
+    return new ParseError(token, message);
   }
 
   isAtEnd(): boolean {
@@ -167,14 +310,17 @@ export class Parser {
   }
 
   primary(): Expr {
-    if (this.match(TokenType.NUMBER, TokenType.STRING)) {
+    if (this.match(TokenType.NUMBER)) {
+      return new ExprLiteral(Number(this.previous().getLiteral()));
+    }
+    if (this.match(TokenType.STRING)) {
       return new ExprLiteral(this.previous().getLiteral());
     }
     if (this.match(TokenType.SAHI)) {
-      return new ExprLiteral(this.previous().getLiteral());
+      return new ExprLiteral(true);
     }
     if (this.match(TokenType.GALAT)) {
-      return new ExprLiteral(this.previous().getLiteral());
+      return new ExprLiteral(false);
     }
 
     if (this.match(TokenType.IDENTIFIER)) {
@@ -207,6 +353,7 @@ export class Parser {
         case TokenType.BOL_BHAI:
         case TokenType.BAS_KAR_BHAI:
         case TokenType.AGLA_DEKH_BHAI:
+        case TokenType.IDENTIFIER:
           return;
         default:
       }

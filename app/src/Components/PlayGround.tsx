@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
+import TerminalOutput from "./TerminalOutput";
 
 const PlayGround: React.FC = () => {
   const [code, setCode] = useState<string>(
     'bhai ye hai a = "Hello";\nbol bhai a, " bhai log!"'
   );
-  const [output, setOutput] = useState<string>("Hello bhai log!");
+  const [output, setOutput] = useState<string[]>(["Hello bhai log!"]);
 
   const lineCount: number = code.split("\n").length;
 
@@ -75,7 +76,7 @@ const PlayGround: React.FC = () => {
           />
         </div>
       </div>
-      <pre className="bg-black py-0.5 m-0.5">{output}</pre>
+      <TerminalOutput output={output} />
     </>
   );
 };

@@ -10,8 +10,8 @@ export class Environment {
     this._enclosing = enclosing;
   }
 
-  define(name: Token, value: Value): void {
-    this.values.set(name.getLexeme(), value);
+  define(name: string, value: Value): void {
+    this.values.set(name, value);
   }
 
   assign(name: Token, value: Value): void {

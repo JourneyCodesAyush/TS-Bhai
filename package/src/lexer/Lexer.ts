@@ -9,9 +9,12 @@ export class LexerError {
   ) {}
 }
 
-const keywords: { [key: string]: TokenType } = {
-  sahi: TokenType.SAHI,
-  galat: TokenType.GALAT,
+const keywords: {
+  [key: string]: { type: TokenType; literal: boolean | null };
+} = {
+  sahi: { type: TokenType.SAHI, literal: true },
+  galat: { type: TokenType.GALAT, literal: false },
+  nalla: { type: TokenType.NALLA, literal: null },
 };
 
 const multikeywords: { [key: string]: TokenType } = {
@@ -144,7 +147,9 @@ export class Lexer {
         this.addToken(TokenType.RIGHT_CURLY_BRACE);
         break;
       case "=":
-        this.addToken(TokenType.EQUAL);
+        this.addToken(
+          this.match("=") ? TokenType.EQUAL_EQUAL : TokenType.EQUAL
+        );
         break;
       case ",":
         this.addToken(TokenType.COMMA);
@@ -305,7 +310,7 @@ export class Lexer {
     }
 
     if (keywords[word]) {
-      this.addToken(keywords[word], null, word);
+      this.addToken(keywords[word].type, keywords[word].literal, word);
     } else {
       this.addToken(TokenType.IDENTIFIER, null, word.trim());
     }

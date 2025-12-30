@@ -1,5 +1,5 @@
 import { Interpreter } from "./interpreter/Interpreter";
-import { Lexer, LexerError, Token, TokenType } from "./lexer/index";
+import { Lexer, LexerError, Token } from "./lexer/index";
 import { Parser, ParseError } from "./parser/index";
 import { Stmt } from "./parser/Stmt";
 
@@ -145,7 +145,7 @@ export const tokenizeSource = (sourceCode: string): string => {
   const lexer = new Lexer(sourceCode);
   const { tokens, errors }: { tokens: Token[]; errors: LexerError[] } =
     lexer.scanTokens();
-
+  errors; // To avoid error on building
   let tokenString: string = "";
 
   tokens.forEach((token) => {

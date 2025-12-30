@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import TerminalOutput from "./TerminalOutput";
 
-import { runBhaiLang } from "../../../package/src/runner";
-import type { RunResult } from "../../../package/src/runner";
+import { runBhaiLang } from "../../../package/core/runner";
+import type { RunResult } from "../../../package/core/runner";
 
 const PlayGround: React.FC = () => {
   const [code, setCode] = useState<string>(

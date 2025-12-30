@@ -1,4 +1,4 @@
-import type { Stmt } from "./Stmt";
+// import type { Stmt } from "./Stmt";
 import type { StmtBlock } from "./StmtBlock";
 import type { StmtExpr } from "./StmtExpression";
 import type { StmtIf } from "./StmtIf";

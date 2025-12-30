@@ -1,4 +1,4 @@
-import type { Expr } from "./Expr";
+// import type { Expr } from "./Expr";
 import type { ExprAssign } from "./ExprAssign";
 import type { ExprBinary } from "./ExprBinary";
 import type { ExprGrouping } from "./ExprGrouping";

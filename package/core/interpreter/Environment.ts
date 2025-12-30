@@ -4,7 +4,7 @@ import { RuntimeError } from "./RuntimeError";
 
 export class Environment {
   public values: Map<string, Value> = new Map();
-  private _enclosing?: Environment;
+  private _enclosing?: Environment | undefined;
   constructor(enclosing?: Environment) {
     this.values = new Map();
     this._enclosing = enclosing;

@@ -1,11 +1,15 @@
 import React, { useState, useRef } from "react";
 import TerminalOutput from "./TerminalOutput";
 
+import { runBhaiLang } from "../../../package/src/runner";
+import type { RunResult } from "../../../package/src/runner";
+
 const PlayGround: React.FC = () => {
   const [code, setCode] = useState<string>(
     'bhai ye hai a = "Hello";\nbol bhai a, " bhai log!"'
   );
   const [output, setOutput] = useState<string[]>(["Hello bhai log!"]);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const lineCount: number = code.split("\n").length;
 
@@ -21,10 +25,16 @@ const PlayGround: React.FC = () => {
 
   const handleClear = () => {
     setCode("");
+    setOutput([]);
+    setErrors([]);
   };
 
   const handleRun = () => {
     // Handle with exposed API from ../package/..
+    const result: RunResult = runBhaiLang(code);
+
+    setOutput(result.output);
+    setErrors(result.errors);
   };
 
   return (
@@ -76,7 +86,7 @@ const PlayGround: React.FC = () => {
           />
         </div>
       </div>
-      <TerminalOutput output={output} />
+      <TerminalOutput output={output} errors={errors} />
     </>
   );
 };

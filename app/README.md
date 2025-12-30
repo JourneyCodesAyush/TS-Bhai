@@ -1,73 +1,121 @@
-# React + TypeScript + Vite
+# TS-Bhai Playground
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **desktop-first playground** for **BhaiLang** built with **React + TypeScript**.
+It allows you to write, execute, and view BhaiLang code outputs and errors in real-time.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## React Compiler
+- [TS-Bhai Playground](#ts-bhai-playground)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Project Structure](#project-structure)
+  - [Usage](#usage)
+  - [Features](#features)
+  - [Limitations](#limitations)
+  - [Contributing](#contributing)
+  - [References](#references)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Clone the repo and install dependencies:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/journeycodesayush/ts-bhai.git
+cd ts-bhai/app
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Start the playground locally:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+> Opens a React development server at `http://localhost:5173`.
+
+---
+
+## Project Structure
+
+```
+app/
+├── src/
+│   ├── Components/
+│   │   ├── PlayGround.tsx       # Main editor & run button
+│   │   └── TerminalOutput.tsx   # Displays output and errors
+│   ├── main.tsx                # React entry point
+│   └── ...
+├── public/
+├── package.json
+└── tsconfig.json
+```
+
+**Key components:**
+
+- `PlayGround.tsx` – Code editor, run button, and output panel.
+- `TerminalOutput.tsx` – Displays outputs and errors in a styled terminal-like panel.
+
+The playground **depends on the `package/core/runner.ts`** to execute BhaiLang code.
+
+---
+
+## Usage
+
+1. Type BhaiLang code in the editor.
+2. Click **Run** to execute.
+3. Outputs appear in white text; errors appear in red.
+
+```bhai
+bhai ye hai a = "Hello";
+bol bhai a, " bhai log!";
+```
+
+**Example Output:**
+
+```
+Hello bhai log!
+```
+
+**Example Error:**
+
+```
+[Runtime error] 'a': Cannot assign to nalla
+```
+
+---
+
+## Features
+
+- Executes BhaiLang code using **runner** from `package/core`.
+- Shows **output** and **errors** separately.
+- Minimal UI optimized for **desktop** screens.
+
+---
+
+## Limitations
+
+- **Desktop-only**: Mobile screens not supported.
+- Playground is **minimal**: no support for some complex assignments (`+=`, `-=`, etc.) or assignments to `nalla`.
+- Does **not include tests**.
+- TypeScript + React only; bundler required for web use.
+
+---
+
+## Contributing
+
+1. Fork the repo.
+2. Make changes inside `src/Components/`.
+3. Test locally with `npm run dev`.
+4. Submit a pull request.
+
+---
+
+## References
+
+- Core BhaiLang implementation: `package/core/`
+- Language specifications: [`docs/language.md`](../docs/language.md)
+- Inspired by original [BhaiLang](https://bhailang.js.org) and _Crafting Interpreters_ by Robert Nystrom

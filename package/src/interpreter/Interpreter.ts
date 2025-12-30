@@ -71,13 +71,25 @@ export class Interpreter
       }
       return this.output;
     } catch (error) {
-      if (error instanceof RuntimeError) {
-        // Handle RuntimeError
-      } else if (error instanceof NallaPointerException) {
-        // Handle NallaPointerException
+      if (
+        error instanceof RuntimeError ||
+        error instanceof NallaPointerException
+      ) {
+        this.InterpreterErrors.push(error);
+      } else {
+        // wrap unknown errors as RuntimeError
+        this.InterpreterErrors.push(
+          new RuntimeError(
+            {
+              getLexeme: () => "<unknown>",
+              getType: () => TokenType.PLUS,
+            } as Token,
+            String(error)
+          )
+        );
       }
+      return undefined;
     }
-    return undefined;
   }
 
   execute(stmt: Stmt) {

@@ -1,4 +1,4 @@
-import { Value } from "./Value";
+import type { Value } from "./Value";
 import { Token } from "../lexer/index";
 import { RuntimeError } from "./RuntimeError";
 

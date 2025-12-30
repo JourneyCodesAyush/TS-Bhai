@@ -1,4 +1,4 @@
-import { Visitor } from "../parser/Expr/index";
+import type { Visitor } from "../parser/Expr/index";
 import {
   Expr,
   ExprAssign,
@@ -20,10 +20,10 @@ import {
   StmtBreak,
   StmtContinue,
 } from "../parser/Stmt/index";
-import { StmtVisitor } from "../parser/Stmt/index";
+import type { StmtVisitor } from "../parser/Stmt/index";
 
 import { Token, TokenType } from "../lexer/index";
-import { Value } from "./Value";
+import type { Value } from "./Value";
 import { Environment } from "./Environment";
 import { RuntimeError } from "./RuntimeError";
 import { NallaPointerException } from "./NallaPointerException";
@@ -167,11 +167,11 @@ export class Interpreter
     }
   }
 
-  visitBreakStmt(node: StmtBreak): void {
+  visitBreakStmt(_: StmtBreak): void {
     throw new BreakSignal();
   }
 
-  visitContinueStmt(node: StmtContinue): void {
+  visitContinueStmt(_: StmtContinue): void {
     throw new ContinueSignal();
   }
 
@@ -290,7 +290,7 @@ export class Interpreter
       throw new RuntimeError(token, "Operand must be a number.");
     } else if (value === null) {
       throw new NallaPointerException(
-        value,
+        token,
         "Operations on nalla pointer are NOT allowed"
       );
     }

@@ -306,7 +306,7 @@ export class Interpreter
   }
 
   private isTruthy(value: Value): boolean {
-    if (value === null || value === false) return false;
+    if (value === null || value === false || value === 0) return false;
     return true;
   }
 

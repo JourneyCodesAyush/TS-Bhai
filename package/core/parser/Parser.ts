@@ -322,6 +322,9 @@ export class Parser {
     if (this.match(TokenType.GALAT)) {
       return new ExprLiteral(false);
     }
+    if (this.match(TokenType.NALLA)) {
+      return new ExprLiteral(null);
+    }
 
     if (this.match(TokenType.IDENTIFIER)) {
       return new ExprVariable(this.previous());

@@ -1,0 +1,39 @@
+name: "Question / Help"
+description: Ask a question or request guidance on using TS-Bhai
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got a question or need help with **TS-Bhai**?  
+        ⚠️ Please review the TS-Bhai Language Specification before reporting: [docs/language.md](docs/language.md)  
+        Drop your query here, and we'll try to help!  
+        Include details about interpreter behavior, parser errors, or frontend/playground issues if relevant.
+
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
+        Some language features may be limited or behave differently than the full implementation.  
+        For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
+        Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Question Summary
+      placeholder: "How do I use 'jab tak bhai' loops in TS-Bhai?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      placeholder: |
+        What are you trying to do?  
+        What have you already tried?  
+        Include relevant code snippets, error messages, logs, or screenshots.  
+        Mention if the issue is in the interpreter, parser, or frontend playground.
+    validations:
+      required: true

@@ -1,0 +1,37 @@
+name: "Documentation Issue"
+description: Report an issue with TS-Bhai documentation or suggest improvements
+labels: [documentation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Found something unclear, missing, or incorrect in **TS-Bhai** documentation?  
+        This can include interpreter behavior, parser rules, or frontend/playground guides.  
+        Let us know here, and we'll update it for clarity or accuracy.
+
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
+        Some language features may be limited or behave differently than the full implementation.  
+        For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
+        Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.
+
+  - type: textarea
+    id: documentation-issue
+    attributes:
+      label: Documentation Issue Summary
+      placeholder: "The 'Variables' section is missing explanation on types"
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details or Suggested Fix
+      placeholder: |
+        Describe the problem or suggest how the documentation can be improved.  
+        Include references to specific files, sections, or examples if relevant.  
+        Mention if it relates to interpreter, parser, or frontend/playground documentation.
+    validations:
+      required: true

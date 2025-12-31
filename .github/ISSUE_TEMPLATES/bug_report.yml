@@ -1,0 +1,86 @@
+name: "Bug Report"
+description: Report a bug or unexpected behavior in TS-Bhai
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug in **TS-Bhai**!  
+        ⚠️ Please review the TS-Bhai Language Specification before reporting: [docs/language.md](docs/language.md)  
+        Fill out this form so we can reproduce the issue and fix it quickly.  
+        Bhai will do his best to behave… eventually 😅.
+
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
+        Some language features may be limited or behave differently than the full implementation.  
+        For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
+        Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.
+
+  - type: input
+    id: title
+    attributes:
+      label: Short Summary
+      placeholder: "Interpreter crashes when using 'agar bhai' with nested blocks"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      placeholder: |
+        Describe what you did, what happened, and what you expected.
+        Include error messages if any.
+      description: |
+        Logs, code snippets, and screenshots help a lot. Drag & drop them below.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Run the TS-Bhai playground or interpreter
+        2. Enter relevant code
+        3. Observe unexpected behavior or crash
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Minimal TS-Bhai Code Example
+      placeholder: |
+        Paste the shortest code snippet that triggers the bug.
+        Example:
+        agar bhai (10 < 20) {
+          bol bhai "ok";
+        }
+
+  - type: input
+    id: ts-version
+    attributes:
+      label: TypeScript Version
+      placeholder: "5.1 / 5.2 / etc."
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js Version
+      placeholder: "18 / 20 / etc."
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "Windows 11 / macOS Ventura / Ubuntu 22.04"
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I'm using the latest version of the repository
+        - label: I checked the README and Known Limitations
+        - label: I included error logs or screenshots if available

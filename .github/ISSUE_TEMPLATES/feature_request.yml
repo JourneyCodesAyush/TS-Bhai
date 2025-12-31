@@ -1,0 +1,73 @@
+name: "Feature Request"
+description: Suggest a new feature or improvement for TS-Bhai (interpreter or playground)
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got a cool idea for **TS-Bhai**?  
+        ⚠️ Please review the TS-Bhai Language Specification before reporting: [docs/language.md](docs/language.md)  
+        New syntax? New built-in? Better interpreter behavior? Improved frontend/playground UX?  
+        Drop your proposal below - Bhai loves chaos, but structured chaos is even better 😎.
+
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
+        Some language features may be limited or behave differently than the full implementation.  
+        For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
+        Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.
+
+  - type: input
+    id: title
+    attributes:
+      label: Feature Summary
+      placeholder: "Add 'bas kar bhai' (break) support"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What should this feature do?
+      placeholder: |
+        Describe the feature, how it should work,
+        and why it makes TS-Bhai more powerful or fun.
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example TS-Bhai Code (optional but helpful)
+      placeholder: |
+        Provide a short example of how the syntax or feature would look.
+        Example:
+        jab tak bhai (a < 10) {
+          a += 1;
+          agar bhai (a == 5)
+          { 
+            bas kar bhai;
+          }
+        }
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      placeholder: |
+        Any related issues, motivations, frontend UX improvements, or reference features
+        from other languages.
+
+  - type: checkboxes
+    id: feature_type
+    attributes:
+      label: What part of TS-Bhai does this affect?
+      options:
+        - label: Lexer (token definitions)
+        - label: Parser (grammar / AST)
+        - label: Interpreter (runtime behavior)
+        - label: Built-in functions / keywords
+        - label: Frontend Playground / UI
+        - label: Examples / documentation
+        - label: Other

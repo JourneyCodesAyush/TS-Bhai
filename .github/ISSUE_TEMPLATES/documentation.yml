@@ -1,6 +1,7 @@
 name: "Documentation Issue"
 description: Report an issue with TS-Bhai documentation or suggest improvements
 labels: [documentation]
+
 body:
   - type: markdown
     attributes:
@@ -8,14 +9,12 @@ body:
         Found something unclear, missing, or incorrect in **TS-Bhai** documentation?  
         This can include interpreter behavior, parser rules, or frontend/playground guides.  
         Let us know here, and we'll update it for clarity or accuracy.
-
-  - type: markdown
-    attributes:
-      value: |
-        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
+        **Note:** TS-Bhai is a **playground / demo**.  
         Some language features may be limited or behave differently than the full implementation.  
-        For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
-        Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.
+        For full BhaiLang behavior, check **JavaBhaiLang** locally:  
+        https://github.com/journeycodesayush/javabhailang  
+        Also, refer to the TS-Bhai Language Specification for expected behavior:  
+        https://github.com/journeycodesayush/ts-bhai/blob/main/docs/language.md
 
   - type: textarea
     id: documentation-issue

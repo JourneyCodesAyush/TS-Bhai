@@ -6,14 +6,10 @@ body:
     attributes:
       value: |
         Got a question or need help with **TS-Bhai**?  
-        ⚠️ Please review the TS-Bhai Language Specification before reporting: [docs/language.md](docs/language.md)  
+        Please review the TS-Bhai Language Specification before reporting: [docs/language.md](docs/language.md)  
         Drop your query here, and we'll try to help!  
         Include details about interpreter behavior, parser errors, or frontend/playground issues if relevant.
-
-  - type: markdown
-    attributes:
-      value: |
-        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
+        **Note:** TS-Bhai is a **playground / demo**.
         Some language features may be limited or behave differently than the full implementation.  
         For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
         Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.

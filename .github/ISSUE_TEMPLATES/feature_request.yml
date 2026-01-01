@@ -1,22 +1,22 @@
 name: "Feature Request"
 description: Suggest a new feature or improvement for TS-Bhai (interpreter or playground)
 labels: [enhancement]
+
 body:
   - type: markdown
     attributes:
       value: |
         Got a cool idea for **TS-Bhai**?  
-        ⚠️ Please review the TS-Bhai Language Specification before reporting: [docs/language.md](docs/language.md)  
-        New syntax? New built-in? Better interpreter behavior? Improved frontend/playground UX?  
-        Drop your proposal below - Bhai loves chaos, but structured chaos is even better 😎.
 
-  - type: markdown
-    attributes:
-      value: |
-        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
-        Some language features may be limited or behave differently than the full implementation.  
-        For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
-        Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.
+        Please review the TS-Bhai Language Specification before reporting:  
+        https://github.com/journeycodesayush/ts-bhai/blob/main/docs/language.md  
+        New syntax? New built-in? Better interpreter behavior? Improved frontend/playground UX?  
+        Drop your proposal below — Bhai loves chaos, but structured chaos is even better.
+        **Note:** TS-Bhai is a **playground / demo**.  
+        Some language features may be limited or behave differently than the full implementation.
+        For full BhaiLang behavior, check **JavaBhaiLang** locally:  
+        https://github.com/journeycodesayush/javabhailang
+        Also, refer to the TS-Bhai Language Specification for expected behavior.
 
   - type: input
     id: title
@@ -45,8 +45,7 @@ body:
         Example:
         jab tak bhai (a < 10) {
           a += 1;
-          agar bhai (a == 5)
-          { 
+          agar bhai (a == 5) {
             bas kar bhai;
           }
         }
@@ -56,8 +55,8 @@ body:
     attributes:
       label: Additional Context
       placeholder: |
-        Any related issues, motivations, frontend UX improvements, or reference features
-        from other languages.
+        Any related issues, motivations, frontend UX improvements,
+        or reference features from other languages.
 
   - type: checkboxes
     id: feature_type

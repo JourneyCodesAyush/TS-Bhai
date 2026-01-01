@@ -1,22 +1,21 @@
 name: "Bug Report"
 description: Report a bug or unexpected behavior in TS-Bhai
 labels: [bug]
+
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for reporting a bug in **TS-Bhai**!  
-        ⚠️ Please review the TS-Bhai Language Specification before reporting: [docs/language.md](docs/language.md)  
+        Please review the TS-Bhai Language Specification before reporting:  
+        https://github.com/journeycodesayush/ts-bhai/blob/main/docs/language.md  
         Fill out this form so we can reproduce the issue and fix it quickly.  
-        Bhai will do his best to behave… eventually 😅.
-
-  - type: markdown
-    attributes:
-      value: |
-        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
-        Some language features may be limited or behave differently than the full implementation.  
-        For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
-        Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.
+        Bhai will do his best to behave... eventually.
+        **Note:** TS-Bhai is a **playground / demo**. 
+        Some language features may be limited or behave differently than the full implementation.
+        For full BhaiLang behavior, check **JavaBhaiLang** locally:  
+        https://github.com/journeycodesayush/javabhailang
+        Also, refer to the TS-Bhai Language Specification for expected behavior.
 
   - type: input
     id: title

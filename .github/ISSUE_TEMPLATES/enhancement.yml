@@ -1,22 +1,22 @@
 name: "Code Enhancement / Refactor"
 description: Suggest improvements or refactoring for TS-Bhai codebase
 labels: [enhancement, refactor]
+
 body:
   - type: markdown
     attributes:
       value: |
         Got an idea for improving the codebase of **TS-Bhai**?  
-        ⚠️ Please review the TS-Bhai Language Specification before reporting: [docs/language.md](docs/language.md)  
+        Please review the TS-Bhai Language Specification before reporting:  
+        https://github.com/journeycodesayush/ts-bhai/blob/main/docs/language.md  
         Whether it's refactoring a function, improving readability, optimizing performance,
         or enhancing frontend/playground code, share your thoughts below.
-
-  - type: markdown
-    attributes:
-      value: |
-        ⚠️ **Note:** TS-Bhai is a **playground / demo**.  
-        Some language features may be limited or behave differently than the full implementation.  
-        For full BhaiLang behavior, check [JavaBhaiLang](https://github.com/journeycodesayush/javabhailang) locally.  
-        Also, refer to the [TS-Bhai Language Specification](docs/language.md) for expected behavior.
+        **Note:** TS-Bhai is a **playground / demo**.
+        Some language features may be limited or behave differently than the full
+        implementation.
+        For full BhaiLang behavior, check **JavaBhaiLang** locally:  
+        https://github.com/journeycodesayush/javabhailang
+        Also, refer to the TS-Bhai Language Specification for expected behavior.
 
   - type: textarea
     id: enhancement-summary

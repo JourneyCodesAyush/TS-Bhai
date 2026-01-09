@@ -2,7 +2,11 @@ import React from "react";
 import { GrJava } from "react-icons/gr";
 import TextToSvgComponent from "./bhaiLang";
 
-const Home: React.FC = () => {
+interface HomeProps {
+  onPlaygroundClick: () => void;
+}
+
+const Home: React.FC<HomeProps> = ({ onPlaygroundClick }) => {
   return (
     <main className="bg-[#121121] w-full min-h-screen flex flex-col justify-center ">
       <div className="flex gap-1 justify-center items-center justify-self-center">
@@ -25,7 +29,10 @@ const Home: React.FC = () => {
         </a>
       </div>
       <div className="flex gap-5 justify-center mt-5">
-        <button className="mr-3 py-4 px-7 bg-orange-500 hover:bg-orange-600 font-bold  text-white rounded-md cursor-pointer">
+        <button
+          onClick={onPlaygroundClick}
+          className="mr-3 py-4 px-7 bg-orange-500 hover:bg-orange-600 font-bold  text-white rounded-md cursor-pointer"
+        >
           Play here
         </button>
         <button

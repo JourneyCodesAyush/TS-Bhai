@@ -4,7 +4,11 @@ import TerminalOutput from "./TerminalOutput";
 import { runBhaiLang } from "../../../package/core/runner";
 import type { RunResult } from "../../../package/core/runner";
 
-const PlayGround: React.FC = () => {
+interface playGroundProps {
+  playGroundRef: React.RefObject<HTMLDivElement | null>;
+}
+
+const PlayGround: React.FC<playGroundProps> = ({ playGroundRef }) => {
   const [code, setCode] = useState<string>(
     'bhai ye hai a = "Hello";\nbol bhai a, " bhai log!"'
   );
@@ -39,7 +43,7 @@ const PlayGround: React.FC = () => {
 
   return (
     <>
-      <div className="playground mx-4 mb-8">
+      <div ref={playGroundRef} className="playground mx-4 mb-8">
         <div className="flex justify-between items-center" id="playground">
           <h1 className="font-extrabold text-4xl text-gray-100 py-0.5 my-4 tracking-tight">
             PlayGround

@@ -10,7 +10,7 @@ interface playGroundProps {
 
 const PlayGround: React.FC<playGroundProps> = ({ playGroundRef }) => {
   const [code, setCode] = useState<string>(
-    'bhai ye hai a = "Hello";\nbol bhai a, " bhai log!"'
+    'bhai ye hai a = "Hello";\nbol bhai a, " bhai log!";'
   );
   const [output, setOutput] = useState<string[]>(["Hello bhai log!"]);
   const [errors, setErrors] = useState<string[]>([]);

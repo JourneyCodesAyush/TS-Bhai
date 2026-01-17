@@ -35,7 +35,7 @@ Values considered **falsey**:
 
 All other values are truthy.
 
-> **Note:** Original BhaiLang treats `0` as false; JavaBhaiLang and TS-Bhai treat `0` as truthy.
+> **Note:** Original BhaiLang treats `0` as false; Same does JavaBhaiLang and TS-Bhai
 
 Truthiness applies to:
 
@@ -59,10 +59,9 @@ Rules:
 - Must be declared before use
 - Using an undefined variable → runtime error
 - Assignment to `nalla`:
-
   - Original BhaiLang: allowed
   - JavaBhaiLang: allowed
-  - TS-Bhai: disallowed
+  - TS-Bhai: allowed
 
 ---
 
@@ -74,7 +73,7 @@ Supported:
 - Comparison: `== != < <= > >=`
 - Logical: `&& ||`
 - Assignment: `= += -= *= /=` (TS-Bhai does **not** support complex assignments)
-- Unary operators: `-`, `!` (original BhaiLang does **not** support `!`)
+- Unary operators: `-`, `!` (original BhaiLang does **not** support `!` on `boolean` values)
 
 > Type errors during evaluation → runtime error
 
@@ -88,23 +87,20 @@ Supported statements:
 - Expression statements
 - Print: `bol bhai`
 - Conditionals:
-
   - `agar bhai` → if
   - `nahi to bhai` → else if
   - `warna bhai` → else
 
 - Loops: `jab tak bhai`
 - Loop control:
-
   - `bas kar bhai` → break
   - `agla dekh bhai` → continue
 
 **Loop rules:**
 
 - Break/continue **outside loops**:
-
   - Original BhaiLang: runtime error
-  - JavaBhaiLang: stack unwinds
+  - JavaBhaiLang: runtime error
   - TS-Bhai: type/runtime error depending on check
 
 ---
@@ -114,7 +110,6 @@ Supported statements:
 - Loops evaluate truthiness of the condition.
 - Conditionals short-circuit correctly.
 - Statements outside `hi bhai … bye bhai`:
-
   - File execution: only executed inside block
   - REPL: executed immediately
 
@@ -127,7 +122,6 @@ Types of errors:
 - Lexer errors
 - Parse errors
 - Runtime errors:
-
   - Undefined variables
   - Invalid operand types
   - Illegal control flow (break/continue outside loop)
@@ -139,16 +133,16 @@ Types of errors:
 
 ## 8. Implementation Edge Cases
 
-| Case                                 | Original BhaiLang       | JavaBhaiLang                       | TS-Bhai                                 | Notes                                |
-| ------------------------------------ | ----------------------- | ---------------------------------- | --------------------------------------- | ------------------------------------ |
-| Unary `!sahi`                        | ❌ Unexpected token `!` | ✅ Prints `galat`                  | ✅ Prints `galat`                       | Original does not support `!`        |
-| `break/continue` outside loops       | ❌ Runtime error        | Stack unwinds (prints exception)   | ❌ Runtime error                        | TS-Bhai enforces runtime check       |
-| Assignment to `nalla`                | ✅ Allowed              | ✅ Allowed                         | ❌ Not allowed                          | TS-Bhai stricter, playground safer   |
-| Complex assignments `+=, -=, *=, /=` | ✅ Supported            | ✅ Supported                       | ❌ Not supported                        | Playground intentionally minimal     |
-| Nested `if-else` chains              | ✅ Supported            | ✅ Supported                       | ✅ Supported                            | All behave as expected               |
-| Truthiness of 0 in loops             | ❌ Treated as false     | ✅ Treated as true → infinite loop | ✅ Treated as true → playground crashes | Important divergence                 |
-| Unsupported operators                | ❌ Runtime error        | ✅ Evaluates if supported          | ❌ Syntax error                         | Playground minimal                   |
-| Loop with invalid condition type     | ❌ Runtime error        | Frozen / exception                 | ❌ Type error                           | JavaBhaiLang may need extra handling |
+| Case                                 | Original BhaiLang       | JavaBhaiLang              | TS-Bhai             | Notes                                |
+| ------------------------------------ | ----------------------- | ------------------------- | ------------------- | ------------------------------------ |
+| Unary `!sahi`                        | ❌ Unexpected token `!` | ✅ Prints `galat`         | ✅ Prints `galat`   | Original does not support `!`        |
+| `break/continue` outside loops       | ❌ Runtime error        | ❌ Runtime error          | ❌ Runtime error    | TS-Bhai enforces runtime check       |
+| Assignment to `nalla`                | ✅ Allowed              | ✅ Allowed                | ✅ Allowed          | TS-Bhai stricter, playground safer   |
+| Complex assignments `+=, -=, *=, /=` | ✅ Supported            | ✅ Supported              | ❌ Not supported    | Playground intentionally minimal     |
+| Nested `if-else` chains              | ✅ Supported            | ✅ Supported              | ✅ Supported        | All behave as expected               |
+| Truthiness of 0 in loops             | ❌ Treated as false     | ❌ Treated as false       | ❌ Treated as false | Important divergence                 |
+| Unsupported operators                | ❌ Runtime error        | ✅ Evaluates if supported | ❌ Syntax error     | Playground minimal                   |
+| Loop with invalid condition type     | ❌ Runtime error        | Frozen / exception        | ❌ Type error       | JavaBhaiLang may need extra handling |
 
 > These cases illustrate where implementations **diverge** from original semantics.
 > Use this table for **testing, documentation, and teaching**.

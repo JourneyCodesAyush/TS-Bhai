@@ -74,7 +74,11 @@ Supported:
 - Logical: `&& ||`
 - Assignment: `= += -= *= /=` (TS-Bhai does **not** support complex assignments)
 - Unary operators: `-`, `!` (original BhaiLang does **not** support `!` on `boolean` values)
+- Comparison: `== != < <= > >=`
 
+> **Operand rule:** Comparison operators require Number operands (Boolean and Null are not valid operands for `< <= > >=`). Passing a Boolean to a comparison operator raises a runtime error.
+> This means chained comparisons like `a < b < c` always fail at runtime, since the inner comparison evaluates to a Boolean before the outer one runs - regardless of associativity.
+>
 > Type errors during evaluation → runtime error
 
 ---
@@ -133,16 +137,17 @@ Types of errors:
 
 ## 8. Implementation Edge Cases
 
-| Case                                 | Original BhaiLang       | JavaBhaiLang              | TS-Bhai             | Notes                                |
-| ------------------------------------ | ----------------------- | ------------------------- | ------------------- | ------------------------------------ |
-| Unary `!sahi`                        | ❌ Unexpected token `!` | ✅ Prints `galat`         | ✅ Prints `galat`   | Original does not support `!`        |
-| `break/continue` outside loops       | ❌ Runtime error        | ❌ Runtime error          | ❌ Runtime error    | TS-Bhai enforces runtime check       |
-| Assignment to `nalla`                | ✅ Allowed              | ✅ Allowed                | ✅ Allowed          | TS-Bhai stricter, playground safer   |
-| Complex assignments `+=, -=, *=, /=` | ✅ Supported            | ✅ Supported              | ❌ Not supported    | Playground intentionally minimal     |
-| Nested `if-else` chains              | ✅ Supported            | ✅ Supported              | ✅ Supported        | All behave as expected               |
-| Truthiness of 0 in loops             | ❌ Treated as false     | ❌ Treated as false       | ❌ Treated as false | Important divergence                 |
-| Unsupported operators                | ❌ Runtime error        | ✅ Evaluates if supported | ❌ Syntax error     | Playground minimal                   |
-| Loop with invalid condition type     | ❌ Runtime error        | Frozen / exception        | ❌ Type error       | JavaBhaiLang may need extra handling |
+| Case                                 | Original BhaiLang                                                  | JavaBhaiLang                                    | TS-Bhai             | Notes                                                                                                                                               |
+| ------------------------------------ | ------------------------------------------------------------------ | ----------------------------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unary `!sahi`                        | ❌ Unexpected token `!`                                            | ✅ Prints `galat`                               | ✅ Prints `galat`   | Original does not support `!`                                                                                                                       |
+| `break/continue` outside loops       | ❌ Runtime error                                                   | ❌ Runtime error                                | ❌ Runtime error    | TS-Bhai enforces runtime check                                                                                                                      |
+| Assignment to `nalla`                | ✅ Allowed                                                         | ✅ Allowed                                      | ✅ Allowed          | TS-Bhai stricter, playground safer                                                                                                                  |
+| Complex assignments `+=, -=, *=, /=` | ✅ Supported                                                       | ✅ Supported                                    | ❌ Not supported    | Playground intentionally minimal                                                                                                                    |
+| Nested `if-else` chains              | ✅ Supported                                                       | ✅ Supported                                    | ✅ Supported        | All behave as expected                                                                                                                              |
+| Truthiness of 0 in loops             | ❌ Treated as false                                                | ❌ Treated as false                             | ❌ Treated as false | Important divergence                                                                                                                                |
+| Unsupported operators                | ❌ Runtime error                                                   | ✅ Evaluates if supported                       | ❌ Syntax error     | Playground minimal                                                                                                                                  |
+| Loop with invalid condition type     | ❌ Runtime error                                                   | Frozen / exception                              | ❌ Type error       | JavaBhaiLang may need extra handling                                                                                                                |
+| Chained comparison `a < b < c`       | ❌ Runtime error (`"<" ke sath "boolean" aur "number" nahi jamte`) | ❌ Runtime error (`"Operands must be numbers"`) | ❌ Runtime error    | Inner comparison evaluates to Boolean, which is invalid as an operand to the next comparison. Associativity is irrelevant — fails either direction. |
 
 > These cases illustrate where implementations **diverge** from original semantics.
 > Use this table for **testing, documentation, and teaching**.

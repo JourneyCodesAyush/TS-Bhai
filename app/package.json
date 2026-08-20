@@ -1,7 +1,8 @@
 {
-  "name": "app",
-  "private": true,
+  "name": "ts-bhailang-app",
   "version": "0.1.0",
+  "description": "Web playground for TS-Bhai.",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +10,17 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "keywords": [
+    "typescript",
+    "react",
+    "vite",
+    "bhailang"
+  ],
+  "author": {
+    "name": "JourneyCodesAyush",
+    "email": "journeycodes.ayush@gmail.com"
+  },
+  "license": "MIT",
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "@types/prismjs": "^1.26.5",
